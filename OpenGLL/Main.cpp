@@ -15,7 +15,9 @@
 #include <Shader.h>
 #include <Camera.h>
 #include <Model.h>
+#include <FileSystem.h>
 
+#include <string>
 
 enum VAO_IDs { Triangles, NumVAOs, ID3 };
 enum Buffer_IDs { ArrayBuffer1, ArrayBuffer2, EBOBuffer, NumBuffers
@@ -56,14 +58,13 @@ GLfloat lastFrame = 0.0f;
 
 void init()
 {
+	//std::string meshFile = ;
 	myShader = Shader("ElephantVert.glsl", "ElephantFrag.glsl");
-	myModel = Model("res/elefante.obj");
-
 	myShader.Use();
+	myModel = Model(FileSystem::getPath("elephant/elefante.obj"));
 
-
-
-
+	
+	
 }
 
 void modViewProj()
@@ -89,7 +90,7 @@ void display()
 {
 	static const float myColor[] = { 0.2f, 0.5f, 0.7f, 0.3f };
 	glClearBufferfv(GL_COLOR, 0, myColor);
-
+	
 	myModel.Draw(myShader);
 
 }
@@ -142,7 +143,7 @@ int main()
 	glEnable(GL_DEPTH_TEST);
 
 	init();
-
+	
 	// render loop
 	// -----------
 	while (!glfwWindowShouldClose(window))
